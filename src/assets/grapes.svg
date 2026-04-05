@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <g transform="translate(200,150)" fill="#9be15d">
+    <circle cx="80" cy="80" r="60" fill="#c7f27a"/>
+    <circle cx="160" cy="40" r="60" fill="#b7ef69"/>
+    <circle cx="240" cy="90" r="60" fill="#a6e85a"/>
+    <circle cx="160" cy="140" r="60" fill="#8fd84a"/>
+    <circle cx="100" cy="180" r="60" fill="#b3f07a"/>
+  </g>
+  <text x="600" y="740" font-size="22" text-anchor="middle" fill="#666">Placeholder grapes image</text>
+</svg>
