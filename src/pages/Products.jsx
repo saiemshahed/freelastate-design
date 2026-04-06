@@ -2,11 +2,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Monitor, Edit2, Download, BarChart2, Plus, Target } from "lucide-react";
 
-import t1 from "../assets/tour1.svg";
-import t2 from "../assets/tour2.svg";
-import t3 from "../assets/tour3.svg";
-
-const imgs = [t1, t2, t3];
+const imgs = [
+  "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=800"
+];
 
 const items = Array.from({ length: 9 }).map((_, i) => ({
   id: i + 1,

@@ -2,110 +2,80 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Heart, Sparkles, Bell, ArrowRight, Eye, Video, Shield, Users, MapPin, Calendar, Clock } from "lucide-react";
 import grapes from "../assets/grapes.svg";
-import t1 from "../assets/tour1.svg";
-import t2 from "../assets/tour2.svg";
-import t3 from "../assets/tour3.svg";
-
-const tours = [t1, t2, t3];
+const tours = [
+  "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=800"
+];
 const titles = ["Robby Testing", "Neue Version", "test editor", "Gewoba Hollergrund", "Muster Wohnung", "Stadtvilla"];
 
 export default function Dashboard() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-gray-50 min-h-screen">
 
-      {/* Hero Banner with Gratitude */}
-      <div className="relative bg-gradient-to-r from-orange-500 to-orange-400 rounded-3xl shadow-lg p-8 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 overflow-hidden">
-        {/* Background Decoration */}
-        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-48 h-48 bg-orange-600 opacity-20 rounded-full blur-2xl"></div>
-
-        <div className="relative z-10 max-w-2xl text-white">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 rounded-full text-sm font-medium mb-4 backdrop-blur-sm border border-white/30">
-            <Sparkles size={16} className="text-yellow-200" />
-            <span>Welcome back</span>
-          </div>
-          
-          <h2 className="text-3xl sm:text-4xl font-bold flex items-center gap-3">
-            Thank you for using FEELESTATE <Heart className="text-red-400 fill-red-400 animate-pulse" size={32} />
-          </h2>
-
-          <p className="mt-4 text-orange-50 text-lg leading-relaxed font-medium">
-            We're incredibly grateful to have you with us. Explore your latest tours, discover new AI features, and continue building amazing 360° experiences!
-          </p>
-          
-          <div className="mt-8 flex gap-4">
-            <Link to="/products" className="px-6 py-3 bg-white text-orange-600 font-bold rounded-xl shadow-md hover:shadow-lg hover:bg-gray-50 transition-all flex items-center gap-2">
-              Meine Touren <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-
-        <div className="relative z-10 hidden sm:block shrink-0 bg-white/10 p-4 rounded-3xl backdrop-blur-sm border border-white/20 shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-          <img
-            src={grapes}
-            alt="Welcome Grape Decoration"
-            className="w-40 sm:w-48 lg:w-56 drop-shadow-2xl"
-          />
-        </div>
-      </div>
-
-      {/* Main Grid */}
+      {/* Top Grid: Announcement & Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* Admin Announcement Editor Card */}
+        <div className="lg:col-span-2 bg-white rounded-[24px] shadow-sm border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
+          {/* Editor Toolbar Mockup */}
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-orange-500 opacity-20"></div>
 
-        {/* My Tours Section */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold text-gray-800 tracking-tight">Kürzlich bearbeitete Touren</h3>
-            <Link to="/products" className="text-orange-500 font-semibold hover:text-orange-600 flex items-center gap-1 text-sm bg-orange-50 px-3 py-1.5 rounded-lg transition-colors">
-              Alle ansehen <ArrowRight size={16} />
-            </Link>
+          <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-100">
+            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
+              <span className="text-2xl">📢</span>
+            </div>
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Willkommen im FEELESTATE-Dashboard</h2>
+              <p className="text-sm text-gray-500 font-medium mt-0.5">Latest updates and announcements</p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {[0, 1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative"
-              >
-                {/* Image Area */}
-                <div className="h-40 relative overflow-hidden">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${tours[i % 3]})` }}
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
-                  
-                  {/* Status Overlay */}
-                  <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-green-600 text-xs font-bold px-2.5 py-1 rounded-md shadow-sm flex items-center gap-1.5">
-                    <Eye size={12} className="text-green-500" /> Público
-                  </div>
-                </div>
+          {/* Rich Text Editor Body */}
+          <div className="space-y-5 text-gray-600 text-[15px] sm:text-[16px] leading-relaxed max-w-4xl">
+            <p>
+              <span className="font-semibold text-gray-800">Frühling liegt in der Luft 🌱</span>
+            </p>
+            
+            <p>
+              Der Winter verabschiedet sich, die Tage werden länger und auch bei AVANTO geht es mit frischer Energie weiter.
+            </p>
+            
+            <p>
+              Wir arbeiten aktuell an neuen Funktionen und werden euch bald über alle Updates informieren.
+            </p>
 
-                {/* Content Area */}
-                <div className="p-5 flex flex-col flex-1">
-                  <h4 className="font-bold text-gray-800 text-lg group-hover:text-orange-500 transition-colors mb-4 line-clamp-1">
-                    {titles[i]}
-                  </h4>
+            <div className="my-8 rounded-[20px] overflow-hidden shadow-md max-w-3xl border border-gray-100 group cursor-pointer relative">
+              <img 
+                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200" 
+                alt="Team Event" 
+                className="w-full h-[280px] object-cover hover:scale-105 transition-transform duration-700" 
+              />
+              <div className="absolute inset-0 bg-black/5 hover:bg-black/0 transition-colors"></div>
+            </div>
 
-                  {/* Detailed Information Grid */}
-                  <div className="space-y-3 mt-auto">
-                    <div className="flex items-center text-sm text-gray-500 gap-3">
-                      <div className="w-7 h-7 rounded-lg bg-orange-50 flex items-center justify-center text-orange-500 shrink-0">
-                        <MapPin size={14} />
-                      </div>
-                      <span className="truncate">Objekt ID: 104{i}92</span>
-                    </div>
+            <p>
+              Außerdem beginnt bald wieder die Messesaison. Ihr könnt uns unter anderem auf folgenden Veranstaltungen treffen: <strong className="text-gray-900 font-bold">Office Business Beats, Kensington Convention, VR-Immobilien Nord & Süd Tagung.</strong>
+            </p>
+            
+            <br/>
+            
+            <p>Zufrieden mit AVANTO?</p>
+            
+            <p>
+              Dann freuen wir uns über eine kurze Bewertung.<br/>
+              Helfen Sie uns und anderen Interessenten mit <strong className="text-orange-500 font-bold hover:underline cursor-pointer">5 Sternen bei Google</strong>. Vielen Dank für Ihre Unterstützung. ⭐⭐⭐⭐⭐
+            </p>
 
-                    <div className="flex items-center text-sm text-gray-500 gap-3">
-                      <div className="w-7 h-7 rounded-lg bg-orange-50 flex items-center justify-center text-orange-500 shrink-0">
-                        <Clock size={14} />
-                      </div>
-                      <span className="truncate">Bearbeitet: Vor {i + 2} Stunden</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+            <br/>
+
+            <p>
+              Neue Technik, neue Features, neue Möglichkeiten - wir halten euch hier im Dashboard auf dem Laufenden.
+            </p>
+            
+            <p className="font-bold text-gray-900 pt-4">
+              Euer AVANTO-Team 🚀
+            </p>
           </div>
         </div>
 
@@ -124,7 +94,6 @@ export default function Dashboard() {
             </div>
 
             <ul className="space-y-6">
-              {/* Item 1 */}
               <li className="group">
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 text-white flex items-center justify-center shrink-0 shadow-md group-hover:shadow-lg transition-shadow">
@@ -140,7 +109,6 @@ export default function Dashboard() {
                 </div>
               </li>
 
-              {/* Item 2 */}
               <li className="group">
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-400 to-emerald-500 text-white flex items-center justify-center shrink-0 shadow-md group-hover:shadow-lg transition-shadow">
@@ -155,7 +123,6 @@ export default function Dashboard() {
                 </div>
               </li>
 
-              {/* Item 3 */}
               <li className="group">
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-400 to-red-500 text-white flex items-center justify-center shrink-0 shadow-md group-hover:shadow-lg transition-shadow">
@@ -188,7 +155,55 @@ export default function Dashboard() {
             </div>
           </aside>
         </div>
+      </div>
 
+      {/* My Tours Section */}
+      <div className="space-y-6 pt-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-2xl font-bold text-gray-800 tracking-tight">Kürzlich bearbeitete Touren</h3>
+          <Link to="/products" className="text-orange-500 font-semibold hover:text-orange-600 flex items-center gap-1 text-sm bg-orange-50 px-3 py-1.5 rounded-lg transition-colors">
+            Alle ansehen <ArrowRight size={16} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="w-full space-y-4">
+              <Link to={`/products`} className="block">
+                <div 
+                  className="h-[220px] sm:h-[180px] lg:h-[200px] rounded-[24px] bg-cover bg-center shadow-lg border border-gray-200 relative group overflow-hidden"
+                  style={{ backgroundImage: `url(${tours[i % 3]})` }}
+                >
+                  {/* Image Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
+                  
+                  {/* Status Badge Over Image */}
+                  <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md rounded-lg px-3 py-1.5 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity text-white shadow-md">
+                    <Eye size={14} className="text-green-400" />
+                    <span className="text-[12px] font-bold uppercase tracking-widest text-green-400">Público</span>
+                  </div>
+                </div>
+              </Link>
+
+              <div className="px-2 space-y-2">
+                <h4 className="font-bold text-gray-900 text-lg hover:text-orange-500 transition-colors cursor-pointer line-clamp-1">
+                  {titles[i]}
+                </h4>
+
+                <div className="flex flex-col xl:flex-row xl:items-center text-sm text-gray-500 gap-x-5 gap-y-2">
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <MapPin size={15} className="text-orange-400 stroke-[2.5px]" />
+                    <span>ID: 104{i}92</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <Clock size={15} className="text-orange-400 stroke-[2.5px]" />
+                    <span>Vor {i + 2} Std</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

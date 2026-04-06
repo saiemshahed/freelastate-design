@@ -98,7 +98,9 @@ function Header({onToggle, open}){
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
-        <img src={logo} alt="FEELESTATE logo" className="w-28 sm:hidden" />
+        <Link to="/">
+          <img  src={logo} alt="FEELESTATE logo" className="w-28 cursor-pointer" />
+        </Link>
       </div>
 
       <div className="flex items-center gap-5">
