@@ -3,17 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import { 
   Settings, UploadCloud, ArrowUpDown, EyeOff, LayoutTemplate, 
   Map as MapIcon, Info, Link2, Share2, Users, Globe, Video, 
-  Wand2, Image as ImageIcon, Monitor, CheckCircle2, ChevronDown, 
+  Wand2, Image as ImageIcon, Monitor, CheckCircle2, ChevronDown, Menu,
   CheckSquare, Square, Trash2, Download, Edit3, X, Maximize, Move
 } from "lucide-react";
-
-import t1 from "../assets/tour1.svg";
-import t2 from "../assets/tour2.svg";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("Toureinstellungen");
   const [previewImage, setPreviewImage] = useState(null);
+  const [isEditorMenuOpen, setIsEditorMenuOpen] = useState(false);
   
   const menuItems = [
     { title: "Toureinstellungen", icon: Settings },
@@ -50,10 +48,8 @@ export default function ProductDetails() {
 
   const renderToureinstellungen = () => (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Left Form Column */}
       <div className="space-y-6">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-5">
-          {/* Freigabe-Status */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-5">   
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1.5">Freigabe-Status</label>
             <div className="relative">
@@ -65,7 +61,6 @@ export default function ProductDetails() {
             </div>
           </div>
 
-          {/* Tourname */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1.5">Tourname<span className="text-orange-500">*</span></label>
             <input 
@@ -75,7 +70,6 @@ export default function ProductDetails() {
             />
           </div>
 
-          {/* Objekt ID */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1.5">Objekt ID</label>
             <input 
@@ -85,7 +79,6 @@ export default function ProductDetails() {
             />
           </div>
 
-          {/* Ansprechpartner */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1.5">Ansprechpartner</label>
             <div className="relative">
@@ -96,7 +89,6 @@ export default function ProductDetails() {
             </div>
           </div>
 
-          {/* Adresse */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1.5">Adresse <span className="text-gray-400 font-normal">(wird nicht öffentlich angezeigt)</span></label>
             <textarea 
@@ -105,7 +97,6 @@ export default function ProductDetails() {
             ></textarea>
           </div>
 
-          {/* Expose */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1.5">Exposé Informationen</label>
             <div className="relative mb-3">
@@ -121,7 +112,6 @@ export default function ProductDetails() {
           </div>
         </div>
 
-        {/* Hintergrundmusik */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
           <label className="block text-sm font-bold text-gray-700">Hintergrundmusik *</label>
           <div className="space-y-3">
@@ -139,7 +129,6 @@ export default function ProductDetails() {
         </div>
       </div>
 
-      {/* Right Form Column */}
       <div className="space-y-6">
         {/* Einstellungen Checkboxes */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
@@ -277,28 +266,103 @@ export default function ProductDetails() {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)] bg-gray-50 border-t border-gray-100 relative">
+      {/* Mobile top bar for editor menu control */}
+      <div className="lg:hidden sticky top-20 z-20 bg-white/95 backdrop-blur-md border-b border-gray-200 px-4 py-3">
+        <button
+          onClick={() => setIsEditorMenuOpen(true)}
+          className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 shadow-sm hover:bg-gray-50 transition-colors"
+        >
+          <span className="flex items-center gap-2.5 min-w-0">
+            <Menu size={18} className="text-orange-500 shrink-0" />
+            <span className="font-semibold truncate">Editor-Menü: {activeTab}</span>
+          </span>
+          <span className="text-xs font-semibold text-orange-500 uppercase tracking-wide">Öffnen</span>
+        </button>
+      </div>
+
+      {/* Mobile editor menu drawer */}
+      {isEditorMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-40">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setIsEditorMenuOpen(false)}
+          />
+          <aside className="absolute top-20 left-0 h-[calc(100vh-80px)] w-[88%] max-w-sm bg-white border-r border-gray-200 shadow-xl flex flex-col">
+            <div className="p-4 border-b border-gray-100 flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <h2 className="text-lg font-bold text-gray-800 tracking-tight leading-tight">
+                  Editor <span className="block text-gray-400 font-medium text-sm">{activeTab}</span>
+                </h2>
+                <p className="text-orange-500 font-semibold mt-2 text-base">Robby Testing</p>
+              </div>
+              <button
+                onClick={() => setIsEditorMenuOpen(false)}
+                className="w-9 h-9 rounded-lg border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 flex items-center justify-center shrink-0"
+                aria-label="Close editor menu"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto py-2">
+              <nav className="flex flex-col gap-1 px-2">
+                {menuItems.map((item, idx) => {
+                  const isActive = activeTab === item.title;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setActiveTab(item.title);
+                        setIsEditorMenuOpen(false);
+                      }}
+                      className={`flex items-center w-full gap-3 px-4 py-3 rounded-xl text-left transition-colors text-sm font-medium ${
+                        isActive
+                          ? "bg-orange-50 text-orange-600"
+                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      }`}
+                    >
+                      <item.icon size={18} className={isActive ? "text-orange-500" : "text-gray-400"} />
+                      {item.title}
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+
+            <div className="p-4 border-t border-gray-100 bg-white">
+              <a
+                href="#"
+                className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-colors"
+              >
+                <Monitor size={18} className="text-gray-400" />
+                Tour im Browser ansehen
+              </a>
+            </div>
+          </aside>
+        </div>
+      )}
       
       {/* Secondary Sidebar (Editor Menu) */}
-      <aside className="w-full lg:w-72 bg-white border-r border-gray-200 shrink-0 flex flex-col h-[calc(100vh-80px)] sticky top-20 z-10">
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-800 tracking-tight">
-            Editor <span className="text-gray-400 font-medium text-sm ml-1">{activeTab}</span>
+      <aside className="hidden lg:flex w-full lg:w-72 bg-white border-b lg:border-b-0 lg:border-r border-gray-200 shrink-0 flex-col h-auto lg:h-[calc(100vh-80px)] lg:sticky lg:top-20 z-10">
+        <div className="p-4 sm:p-6 border-b border-gray-100">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-800 tracking-tight leading-tight">
+            Editor <span className="block sm:inline text-gray-400 font-medium text-sm sm:ml-1">{activeTab}</span>
           </h2>
-          <p className="text-orange-500 font-semibold mt-2 text-lg">Robby Testing</p>
+          <p className="text-orange-500 font-semibold mt-2 text-base sm:text-lg">Robby Testing</p>
         </div>
         
-        <div className="flex-1 overflow-y-auto py-4">
-          <nav className="flex flex-col space-y-1">
+        <div className="flex-1 overflow-x-auto lg:overflow-y-auto py-2 lg:py-4">
+          <nav className="flex lg:flex-col gap-2 lg:gap-1 px-3 lg:px-0 min-w-max lg:min-w-0">
             {menuItems.map((item, idx) => {
               const isActive = activeTab === item.title;
               return (
                 <button 
                   key={idx}
                   onClick={() => setActiveTab(item.title)}
-                  className={`flex items-center w-full gap-3 px-6 py-3 transition-colors text-sm font-medium ${
+                  className={`flex items-center lg:w-full gap-2.5 lg:gap-3 px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl lg:rounded-none whitespace-nowrap transition-colors text-sm font-medium shrink-0 ${
                     isActive 
-                      ? "bg-orange-50 text-orange-600 border-l-4 border-orange-500" 
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent"
+                      ? "bg-orange-50 text-orange-600 lg:border-l-4 lg:border-orange-500"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 lg:border-l-4 lg:border-transparent"
                   }`}
                 >
                   <item.icon size={18} className={isActive ? "text-orange-500" : "text-gray-400"} />
@@ -318,7 +382,7 @@ export default function ProductDetails() {
       </aside>
 
       {/* Main Form Content */}
-      <div className="flex-1 p-6 lg:p-10 w-full flex justify-center">
+      <div className="flex-1 p-4 sm:p-6 lg:p-10 w-full flex justify-center">
         <div className="w-full max-w-6xl">
           {activeTab === "Toureinstellungen" ? renderToureinstellungen() : null}
           {activeTab === "Upload" ? renderUpload() : null}
@@ -337,18 +401,18 @@ export default function ProductDetails() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md">
           {/* Close button */}
           <button 
-            className="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors shadow-lg z-50 backdrop-blur-sm"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors shadow-lg z-50 backdrop-blur-sm"
             onClick={() => setPreviewImage(null)}
           >
             <X size={24} />
           </button>
           
-          <div className="absolute top-6 left-6 z-50 flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
+          <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-50 flex items-center gap-2.5 sm:gap-3 max-w-[calc(100%-7rem)] sm:max-w-none">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-orange-500 rounded-full flex items-center justify-center shadow-lg shrink-0">
               <Move size={20} className="text-white" />
             </div>
-            <div>
-              <p className="text-white font-bold text-lg">{previewImage.name}</p>
+            <div className="min-w-0">
+              <p className="text-white font-bold text-base sm:text-lg truncate">{previewImage.name}</p>
               <p className="text-orange-400 text-xs font-bold uppercase tracking-widest">360° Interactive Preview</p>
             </div>
           </div>
@@ -365,9 +429,9 @@ export default function ProductDetails() {
              />
           </div>
           
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-md border border-white/10 px-6 py-3 rounded-full flex gap-6 text-white z-50 shadow-2xl items-center pointer-events-none">
-            <Maximize size={20} className="opacity-70" />
-            <span className="font-semibold text-sm tracking-wide">Drag to look around</span>
+          <div className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-md border border-white/10 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full flex gap-3 sm:gap-6 text-white z-50 shadow-2xl items-center pointer-events-none">
+            <Maximize size={18} className="opacity-70" />
+            <span className="font-semibold text-xs sm:text-sm tracking-wide whitespace-nowrap">Drag to look around</span>
           </div>
         </div>
       )}

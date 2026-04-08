@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, Map, Settings, Video, Menu, X, Bell, User, ChevronRight } from 'lucide-react'
+import { LayoutDashboard, Map, Settings, Video, Menu, X, Bell, User, ChevronRight, ChevronDown, UserCog, CreditCard, LogOut } from 'lucide-react'
 import logo from '../assets/main_logo.svg'
 
 function Sidebar({open, onClose}){
@@ -88,8 +88,33 @@ function Sidebar({open, onClose}){
 }
 
 function Header({onToggle, open}){
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const userMenuRef = useRef(null)
+
+  useEffect(() => {
+    const onPointerDown = (event) => {
+      if (!userMenuRef.current?.contains(event.target)) {
+        setIsUserMenuOpen(false)
+      }
+    }
+
+    const onEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsUserMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onEscape)
+
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onEscape)
+    }
+  }, [])
+
   return (
-    <header className="h-20 flex items-center justify-between px-6 lg:px-10 bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30 transition-all">
+    <header className="h-20 flex items-center justify-between px-4 sm:px-6 lg:px-10 bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30 transition-all">
       <div className="flex items-center gap-4">
         <button 
           aria-label="Toggle sidebar" 
@@ -103,23 +128,65 @@ function Header({onToggle, open}){
         </Link>
       </div>
 
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-3 sm:gap-5">
         {/* Notifications */}
         <button className="relative p-2 text-gray-500 hover:text-orange-500 transition-colors">
           <Bell size={22} />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-orange-500 rounded-full border border-white"></span>
         </button>
         
-        {/* User Badge Header */}
-        <div className="hidden sm:flex items-center gap-3 pl-5 border-l border-gray-200">
-          <div className="text-right">
-            <div className="text-sm font-bold text-gray-800">Johannes Kiese</div>
-            <div className="text-xs text-green-600 font-semibold flex items-center justify-end gap-1">
-               <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Online
+        {/* User Menu Trigger + Dropdown */}
+        <div ref={userMenuRef} className="relative">
+          <button
+            aria-label="Open user menu"
+            aria-expanded={isUserMenuOpen}
+            onClick={() => setIsUserMenuOpen(v => !v)}
+            className="flex items-center gap-2 sm:gap-3 sm:pl-5 sm:border-l border-gray-200 rounded-xl px-1.5 sm:px-0 py-1 text-gray-700 hover:text-orange-500 transition-colors"
+          >
+            <div className="hidden sm:block text-right">
+              <div className="text-sm font-bold text-gray-800 leading-tight">Johannes Kiese</div>
+              <div className="text-xs text-green-600 font-semibold flex items-center justify-end gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Online
+              </div>
             </div>
-          </div>
-          <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 border-2 border-white shadow-sm">
-            <User size={20} />
+            <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 border-2 border-white shadow-sm">
+              <User size={20} />
+            </div>
+            <ChevronDown
+              size={16}
+              className={`text-gray-400 transition-transform ${isUserMenuOpen ? 'rotate-180 text-orange-500' : ''}`}
+            />
+          </button>
+
+          <div
+            className={`absolute right-0 top-[calc(100%+10px)] w-[calc(100vw-1.5rem)] max-w-[22rem] sm:w-80 bg-white border border-gray-100 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] p-2.5 origin-top-right transition-all duration-200 ${
+              isUserMenuOpen ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'
+            }`}
+          >
+            <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 mb-2">
+              <p className="text-sm font-bold text-gray-800">Johannes Kiese</p>
+              <p className="text-xs text-gray-500 mt-0.5">johannes@feelestate.com</p>
+            </div>
+
+            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors">
+              <UserCog size={17} />
+              Profil bearbeiten
+            </button>
+            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors">
+              <CreditCard size={17} />
+              Abonnement und Abrechnung
+            </button>
+            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors">
+              <Settings size={17} />
+              Kontoeinstellungen
+            </button>
+
+            <div className="h-px bg-gray-100 my-2"></div>
+
+            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-red-600 hover:bg-red-50 transition-colors">
+              <LogOut size={17} />
+              Abmelden
+            </button>
           </div>
         </div>
       </div>

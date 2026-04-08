@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Heart, Sparkles, Bell, ArrowRight, Eye, Video, Shield, Users, MapPin, Calendar, Clock } from "lucide-react";
-import grapes from "../assets/grapes.svg";
 const tours = [
   "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=800",
   "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=800",
