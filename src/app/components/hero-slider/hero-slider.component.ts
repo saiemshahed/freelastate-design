@@ -20,19 +20,19 @@ type SlideItem = {
 export class HeroSliderComponent implements OnDestroy {
   slides: SlideItem[] = [
     {
-      imageUrl: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&q=80&w=1600',
+      imageUrl: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&q=80&w=1800',
       title: 'Luxus Strandresort',
       description: 'Erleben Sie maximalen Komfort mit Zimmern direkt am Meer.',
       cta: 'Jetzt Buchen',
     },
     {
-      imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1600',
+      imageUrl: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&q=80&w=1800',
       title: 'Sommer-Auszeit am Meer',
       description: 'Ein kuratierter Aufenthalt fuer exklusive Urlaubsmomente.',
       cta: 'Angebote Entdecken',
     },
     {
-      imageUrl: 'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&q=80&w=1600',
+      imageUrl: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1800',
       title: 'City Skyline Hotel',
       description: 'Moderne Suiten fuer Business und Freizeit auf Premium-Niveau.',
       cta: 'Suite Reservieren',
