@@ -1,12 +1,18 @@
 # Modern Dashboard
 
-Vite + React + Tailwind sample project with a modern dashboard layout inspired by the provided images.
+Angular + Tailwind dashboard project.
 
 Run:
 
 ```bash
 npm install
-npm run dev
+npm start
+```
+
+Build:
+
+```bash
+npm run build
 ```
 
 Place images into `src/assets` as explained in that folder.
