@@ -3,11 +3,13 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight, lucideBell, lucideCalendar, lucideClock, lucideEye, lucideMapPin, lucideShield, lucideUsers, lucideVideo } from '@ng-icons/lucide';
+import { HeroSliderComponent } from '../../components/hero-slider/hero-slider.component';
+import { TourInterestComponent } from '../../components/tour-interest/tour-interest.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgIcon],
+  imports: [CommonModule, RouterLink, NgIcon, HeroSliderComponent, TourInterestComponent],
   providers: [provideIcons({ lucideBell, lucideVideo, lucideShield, lucideUsers, lucideCalendar, lucideArrowRight, lucideEye, lucideMapPin, lucideClock })],
   templateUrl: './dashboard.component.html',
 })

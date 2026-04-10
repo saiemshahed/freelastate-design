@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -71,7 +71,7 @@ type SettingCheckbox = { label: string; checked: boolean };
   ],
   templateUrl: './product-details.component.html',
 })
-export class ProductDetailsComponent {
+export class ProductDetailsComponent implements OnDestroy {
   readonly id: string | null;
   activeTab = 'Toureinstellungen';
   isEditorMenuOpen = false;
@@ -122,8 +122,37 @@ export class ProductDetailsComponent {
     this.id = route.snapshot.paramMap.get('id');
   }
 
+  ngOnDestroy(): void {
+    this.unlockBodyScroll();
+  }
+
   selectTab(tab: string | MenuItem): void {
     this.activeTab = typeof tab === 'string' ? tab : tab.title;
     this.isEditorMenuOpen = false;
+  }
+
+  openPreview(img: UploadImage): void {
+    this.previewImage = img;
+    this.lockBodyScroll();
+  }
+
+  closePreview(): void {
+    this.previewImage = null;
+    this.unlockBodyScroll();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.previewImage) {
+      this.closePreview();
+    }
+  }
+
+  private lockBodyScroll(): void {
+    document.body.classList.add('overflow-hidden');
+  }
+
+  private unlockBodyScroll(): void {
+    document.body.classList.remove('overflow-hidden');
   }
 }
