@@ -1,7 +1,7 @@
-<section class="rounded-[28px] mt-5 border border-gray-200 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.08)] p-5 sm:p-7">
+<section class="interest-shell rounded-[28px] mt-5 border border-gray-200 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.08)] p-5 sm:p-7">
   <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
     <div>
-      <p class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-600">
+      <p class="interest-chip inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-600">
         <ng-icon name="lucideBadgeCheck" class="text-[14px]"></ng-icon>
         Konzept fuer mehr Anfragen
       </p>
@@ -9,16 +9,16 @@
       <p class="mt-2 text-sm sm:text-base text-gray-600 max-w-3xl">Eine starke visuelle Praesentation, klare Storyline und schnelle Interaktion sorgen fuer mehr Interesse und bessere Conversion.</p>
     </div>
 
-    <button class="inline-flex items-center gap-2 rounded-xl bg-gray-900 text-white px-4 py-2.5 text-sm font-semibold hover:bg-gray-800 transition-colors self-start lg:self-auto">
+    <button class="interest-cta inline-flex items-center gap-2 rounded-xl bg-gray-900 text-white px-4 py-2.5 text-sm font-semibold hover:bg-gray-800 transition-colors self-start lg:self-auto">
       <ng-icon name="lucideSparkles" class="text-[16px]"></ng-icon>
       Kampagne starten
     </button>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <article *ngFor="let item of highlights" class="relative overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 p-5 hover:shadow-md transition-all">
+  <div class="interest-grid grid grid-cols-1 md:grid-cols-3 gap-4">
+    <article *ngFor="let item of highlights" class="interest-card relative overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 p-5 hover:shadow-md transition-all">
       <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r" [ngClass]="item.tone"></div>
-      <div class="w-11 h-11 rounded-xl text-white bg-gradient-to-r flex items-center justify-center shadow-sm" [ngClass]="item.tone">
+      <div class="interest-icon w-11 h-11 rounded-xl text-white bg-gradient-to-r flex items-center justify-center shadow-sm" [ngClass]="item.tone">
         <ng-icon [name]="item.icon" class="text-[18px]"></ng-icon>
       </div>
       <h4 class="mt-4 text-lg font-bold text-gray-900">{{ item.title }}</h4>

@@ -16,6 +16,7 @@ type HighlightItem = {
   imports: [CommonModule, NgIcon],
   providers: [provideIcons({ lucideTrendingUp, lucideWandSparkles, lucideUsersRound, lucideBadgeCheck, lucideSparkles })],
   templateUrl: './tour-interest.component.html',
+  styleUrl: './tour-interest.component.css',
 })
 export class TourInterestComponent {
   highlights: HighlightItem[] = [

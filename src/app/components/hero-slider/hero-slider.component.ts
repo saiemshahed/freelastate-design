@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 
@@ -44,7 +44,7 @@ export class HeroSliderComponent implements OnDestroy {
   private readonly autoplayMs = 4500;
   private autoplayId: ReturnType<typeof setInterval> | null = null;
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     this.startAutoplay();
   }
 
@@ -65,14 +65,6 @@ export class HeroSliderComponent implements OnDestroy {
     this.restartAutoplay();
   }
 
-  pauseAutoplay(): void {
-    this.stopAutoplay();
-  }
-
-  resumeAutoplay(): void {
-    this.startAutoplay();
-  }
-
   private startAutoplay(): void {
     if (this.autoplayId || this.slides.length < 2) {
       return;
@@ -80,6 +72,7 @@ export class HeroSliderComponent implements OnDestroy {
 
     this.autoplayId = setInterval(() => {
       this.shiftSlide(1, false);
+      this.cdr.detectChanges();
     }, this.autoplayMs);
   }
 
